@@ -4,11 +4,12 @@ import * as Yup from "yup";
 
 
 const InputFields = ({onSubmit}) => {
+    const currentYear = new Date().getFullYear();
 
     const validationSchema = Yup.object().shape({
-        day: Yup.number().min(1, 'Must be a valid day').max(31, 'Must be a valid day'),
-        month: Yup.number().min(1, 'Must be a valid month').max(12, 'Must be a valid month'),
-        year: Yup.number('Must be a valid year.').min(1, 'Must be a valid year').max(9999, 'Must be a valid year'),
+        day: Yup.number().typeError("Must not be empty").min(1, 'Must be a valid day').max(31, 'Must be a valid day'),
+        month: Yup.number().typeError("Must not be empty").min(1, 'Must be a valid month').max(12, 'Must be a valid month'),
+        year: Yup.number().typeError("Must not be empty").min(1).max(currentYear, 'Must be in a past'),
     });
 
 
@@ -21,37 +22,36 @@ const InputFields = ({onSubmit}) => {
         validationSchema: validationSchema,
         onSubmit
     })
-    console.log(formik.errors);
 
 
     return (
         <form className="space-y-20 md:space-y-12" onSubmit={formik.handleSubmit}>
             <div className="flex space-x-2 md:space-x-5 max-w-xs md:max-w-md md:mr-32">
                 <div className="relative flex flex-col justify-center items-start space-y-1 ">
-                    <label className={`input-desc ${formik.errors.day?'text-red-500': ''}`}>day</label>
+                    <label className={`input-desc ${formik.errors.day&& formik.touched.day?'text-error':''}`}>day</label>
                     <input id="day" name="day" value={formik.values.day} onChange={formik.handleChange} placeholder="DD"
-                           className={`input-container ${formik.errors.day?'error-border': ''}`}/>
+                           className={`input-container ${formik.errors.day && formik.touched.day?'error-border': ''}`}/>
                     {formik.touched.day && formik.errors.day ? (
-                        <div className={`absolute left-0 top-16  text-sm text-red-500`}>{formik.errors.day}</div>
+                        <div className={`absolute p-1 left-0 top-16  text-[0.6rem] text-red-500  md:text-[0.8rem]`}>{formik.errors.day}</div>
                     ) : null}
                 </div>
 
 
                 <div className="relative flex flex-col justify-center items-start space-y-1 ">
-                    <label className="input-desc">month</label>
+                    <label className={`input-desc ${formik.errors.month && formik.touched.month?'text-error':''}`}>month</label>
                     <input type="number" name="month" value={formik.values.month} onChange={formik.handleChange} placeholder="MM"
-                           className="input-container"/>
+                           className={`input-container ${formik.errors.month && formik.touched.month?'error-border': ''}`}/>
                     {formik.touched.month && formik.errors.month ? (
-                        <div className="absolute left-0 top-16 text-red-500">{formik.errors.month}</div>
+                        <div className="absolute py-1 left-0 top-16 text-[0.6rem] text-red-500 md:text-[0.8rem]">{formik.errors.month}</div>
                     ) : null}
                 </div>
 
                 <div className="relative flex flex-col justify-center items-start space-y-1">
-                    <label className="input-desc">year</label>
+                    <label className={`input-desc ${formik.errors.year && formik.touched.year ?'text-error':''}`}>year</label>
                     <input type="number" name="year" value={formik.values.year} onChange={formik.handleChange} placeholder="YYYY"
-                           className="input-container"/>
+                           className={`input-container ${formik.errors.year && formik.touched.year?'error-border': ''}`}/>
                     {formik.touched.year && formik.errors.year ? (
-                        <div className="absolute left-0 top-16  text-sm text-red-500">{formik.errors.year}</div>
+                        <div className= "p-1 absolute left-0 top-16 text-[0.6rem] text-red-500  md:text-[0.8rem]">{formik.errors.year}</div>
                     ) : null}
                 </div>
             </div>
@@ -59,7 +59,7 @@ const InputFields = ({onSubmit}) => {
                 <div className="absolute inset-0  flex justify-center items-center z-10 md:justify-end ">
                     <button type="submit" className="group">
                         <div
-                             className=" flex justify-center items-center rounded-full w-20 h-20 bg-purple-600 duration-200 group-hover:opacity-80 ">
+                            className=" flex justify-center items-center rounded-full w-20 h-20 bg-purple-600 duration-200 group-hover:opacity-80 ">
                             <svg xmlns="http://www.w3.org/2000/svg" width="46" height="44" viewBox="0 0 46 44">
                                 <g fill="none" stroke="#FFF" stroke-width="2">
                                     <path

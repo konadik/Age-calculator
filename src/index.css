@@ -26,6 +26,10 @@ h1{
 .input-desc{
 @apply uppercase font-extrabold  text-xs tracking-widest text-gray-500
 }
+.text-error{
+  @apply text-red-500 !important
+}
+
 
 
 body {
