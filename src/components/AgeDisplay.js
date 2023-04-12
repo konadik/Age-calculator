@@ -1,19 +1,23 @@
-const AgeDisplay = () =>{
-    return <div className="flex flex-col justify-center items-start space-y-3">
+import './custom.css';
 
-     <div className="flex  space-x-4 ">
-         <h1 className="md:text-8xl text-6xl font-bold text-purple-500">--</h1>
-         <h1 className="md:text-8xl text-6xl font-bold">years</h1>
+const AgeDisplay = (props) =>{
+
+
+    return <div className="flex flex-col justify-center items-start space-y-3 ">
+
+     <div className="flex space-x-4  ">
+         <h1 className="text-purple-600">{props.data.year || "--"}</h1>
+         <h1>years</h1>
      </div>
 
-        <div className="flex  space-x-4 ">
-            <h1 className="md:text-8xl text-6xl font-bold text-purple-500">--</h1>
-            <h1 className="md:text-8xl text-6xl font-bold">months</h1>
+        <div className="flex space-x-4 ">
+            <h1 className=" text-purple-600">{ props.data.month || "--"}</h1>
+            <h1>months</h1>
         </div>
 
-        <div className="flex  space-x-4 ">
-            <h1 className="md:text-8xl text-6xl font-bold text-purple-500">--</h1>
-            <h1 className="md:text-8xl text-6xl font-bold">days</h1>
+        <div className="flex space-x-4 ">
+            <h1 className="text-purple-600">{ props.data.day || "--" }</h1>
+            <h1>days</h1>
         </div>
 
     </div>
